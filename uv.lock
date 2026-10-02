@@ -955,14 +955,15 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "fastapi", extra = ["standard"] },
     { name = "httpx2" },
     { name = "pytest" },
     { name = "pytest-cov" },
-    { name = "pyyaml" },
-    { name = "scikit-learn" },
 ]
 experiments = [
     { name = "mlflow" },
+    { name = "pyyaml" },
+    { name = "scikit-learn" },
 ]
 lint = [
     { name = "ruff" },
@@ -978,13 +979,16 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "fastapi", extras = ["standard"], specifier = ">=0.142.2" },
     { name = "httpx2", specifier = ">=2.13.1" },
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "pytest-cov", specifier = ">=7.1.0" },
+]
+experiments = [
+    { name = "mlflow", specifier = ">=3.16.1" },
     { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "scikit-learn", specifier = ">=1.9.1" },
 ]
-experiments = [{ name = "mlflow", specifier = ">=3.16.1" }]
 lint = [{ name = "ruff", specifier = ">=0.16.10" }]
 
 [[package]]

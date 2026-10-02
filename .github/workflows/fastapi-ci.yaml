@@ -31,5 +31,25 @@ jobs:
 
       - name: Run Ruff Linter 
         run: uv run ruff check .    
+
+  test-and-coverage:
+    name: Run Tests and Check test-and-coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up uv   
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set UP Python   
+        run: uv python install ${{env.PYTHON_VERSION}}
+
+      - name: Install Dependencies
+        run: uv sync --frozen --only-group dev --no-install-project 
+        
+      - name: Run Tests with Coverage 
+        run: uv run pytest --cov=src --cov-fail-under=80  
+
            
    
