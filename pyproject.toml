@@ -22,8 +22,11 @@ build-backend = "uv_build"
 dev = [
     "fastapi[standard]>=0.142.2",
     "httpx2>=2.13.1",
+    "joblib>=1.6.0",
+    "pandas>=3.0.6",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
+    "xgboost>=3.4.1",
 ]
 experiments = [
     "mlflow>=3.16.1",

@@ -957,8 +957,11 @@ dependencies = [
 dev = [
     { name = "fastapi", extra = ["standard"] },
     { name = "httpx2" },
+    { name = "joblib" },
+    { name = "pandas" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "xgboost" },
 ]
 experiments = [
     { name = "mlflow" },
@@ -981,8 +984,11 @@ requires-dist = [
 dev = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.142.2" },
     { name = "httpx2", specifier = ">=2.13.1" },
+    { name = "joblib", specifier = ">=1.6.0" },
+    { name = "pandas", specifier = ">=3.0.6" },
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "pytest-cov", specifier = ">=7.1.0" },
+    { name = "xgboost", specifier = ">=3.4.1" },
 ]
 experiments = [
     { name = "mlflow", specifier = ">=3.16.1" },
