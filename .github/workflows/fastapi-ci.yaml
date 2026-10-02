@@ -72,14 +72,14 @@ jobs:
       - name: Build and Push Docker Image 
         uses: docker/build-push-action@v6
         env:
-          IMAGE_NAME: fastapi-fraud
+          IMAGE_NAME: fastapi-fraud-detection
         with:
           context: .
           file: ./Dockerfile
           push: true   
           tags: |
             ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:latest  
-            ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}${{github.sha}}   
+            ${{secrets.DOCKERHUB_USERNAME}}/${{env.IMAGE_NAME}}:${{github.sha}}   
             
           cache-from: type=gha
           cache-to: type=gha, mode=max   
