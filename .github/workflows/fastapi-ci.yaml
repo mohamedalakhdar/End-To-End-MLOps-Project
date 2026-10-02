@@ -50,7 +50,7 @@ jobs:
       - name: Run Tests with Coverage 
         run: uv run pytest --cov=src --cov-fail-under=80    
         env:
-         MODEL_PATH: models/xgboost_model.pkl
+         MODEL_PATH: "models/xgboost_model.pkl"
        
   build-and-push:
     name: Build Docker Image and Push to Docker Hub
@@ -72,7 +72,7 @@ jobs:
       - name: Build and Push Docker Image 
         uses: docker/build-push-action@v6
         env:
-          IMAGE_NAME: fastapi-fraud-detection
+          IMAGE_NAME: "fastapi-fraud-detection"
         with:
           context: .
           file: ./Dockerfile
