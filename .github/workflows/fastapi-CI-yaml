@@ -1,0 +1,34 @@
+name: FastAPI CI Pipeline
+
+on:
+  push:
+    branches:
+      - "main"
+
+env:
+  PYTHON_VERSION: "3.13"      
+
+jobs:
+  lint-and-format:
+    name: Code Quality check (Ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up uv   
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set UP Python   
+        run: uv python install ${{env.PYTHON_VERSION}}
+
+      - name: Install Dependencies
+        run: uv sync --frozen --only-group lint --no-install-project
+
+      - name: Check Code Formating
+        run: uv run ruff format --check .
+
+      - name: Run Ruff Linter 
+        run: uv run ruff check .    
+           
+   

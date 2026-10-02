@@ -1,0 +1,20 @@
+services:
+  ml_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: ml_fastapi_image
+    
+    container_name: ml_fastapi_container
+
+    volumes:
+      - /models:/models:ro
+
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"
+
+    restart: unless-stopped

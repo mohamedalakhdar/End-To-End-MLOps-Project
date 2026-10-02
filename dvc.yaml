@@ -1,0 +1,44 @@
+stages:
+
+  # ── prepare: split the raw CSV into train/val parquet ──
+
+  prepare:
+    cmd: python experiments/prepare.py
+    deps:
+      - experiments/prepare.py
+      - experiments/config.py
+      - configs/config.yaml
+      - data/raw/creditcard.csv
+    outs:
+      - data/processed/train.parquet
+      - data/processed/val.parquet
+
+  # ── train: fit a XGBoost on the train split ──
+
+  train:
+    cmd: python experiments/train.py
+    deps:
+      - experiments/train.py
+      - experiments/config.py
+      - data/processed/train.parquet
+    params:
+      - configs/config.yaml:
+          - model.n_estimators
+          - model.max_depth
+          - model.scale_pos_weight
+    outs:
+      - models/xgboost_model.pkl
+
+  # ── evaluate: score the model on the val split ──
+  evaluate:
+    cmd: python experiments/evaluate.py
+    deps:
+      - experiments/evaluate.py
+      - experiments/train.py
+      - experiments/config.py
+      - models/xgboost_model.pkl
+      - data/processed/val.parquet
+      - configs/config.yaml
+    outs:
+      - metrices/scores.json
+       

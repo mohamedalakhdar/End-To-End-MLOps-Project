@@ -1,0 +1,87 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python experiments/prepare.py
+    deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: 8e890e20050f82fb971bb1779a106db2
+      size: 251
+    - path: data/raw/creditcard.csv
+      hash: md5
+      md5: e90efcb83d69faf99fcab8b0255024de
+      size: 150828752
+    - path: experiments/config.py
+      hash: md5
+      md5: ebb1ff7c74961ec17055cf1ac83af572
+      size: 235
+    - path: experiments/prepare.py
+      hash: md5
+      md5: 26164e2d5a96a53ee8e51e381228ffdc
+      size: 1069
+    outs:
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: d4fd0bc69257673a79b2999fa3ffb28f
+      size: 8094885
+    - path: data/processed/val.parquet
+      hash: md5
+      md5: e597233b6004edec5a43b10f4737fda5
+      size: 1997655
+  train:
+    cmd: python experiments/train.py
+    deps:
+    - path: data/processed/train.parquet
+      hash: md5
+      md5: d4fd0bc69257673a79b2999fa3ffb28f
+      size: 8094885
+    - path: experiments/config.py
+      hash: md5
+      md5: ebb1ff7c74961ec17055cf1ac83af572
+      size: 235
+    - path: experiments/train.py
+      hash: md5
+      md5: decc333e3db63052aaab229cf2c7cccc
+      size: 996
+    params:
+      configs/config.yaml:
+        model.max_depth: 4
+        model.n_estimators: 100
+        model.scale_pos_weight: 180
+    outs:
+    - path: models/xgboost_model.pkl
+      hash: md5
+      md5: c34743e6486037a6db2cfbda9b5b56e7
+      size: 161011
+  evaluate:
+    cmd: python experiments/evaluate.py
+    deps:
+    - path: configs/config.yaml
+      hash: md5
+      md5: 8e890e20050f82fb971bb1779a106db2
+      size: 251
+    - path: data/processed/val.parquet
+      hash: md5
+      md5: e597233b6004edec5a43b10f4737fda5
+      size: 1997655
+    - path: experiments/config.py
+      hash: md5
+      md5: ebb1ff7c74961ec17055cf1ac83af572
+      size: 235
+    - path: experiments/evaluate.py
+      hash: md5
+      md5: df4f6bfc9676e4beeb7ecd5ceb93fda5
+      size: 1705
+    - path: experiments/train.py
+      hash: md5
+      md5: decc333e3db63052aaab229cf2c7cccc
+      size: 996
+    - path: models/xgboost_model.pkl
+      hash: md5
+      md5: c34743e6486037a6db2cfbda9b5b56e7
+      size: 161011
+    outs:
+    - path: metrices/scores.json
+      hash: md5
+      md5: 70ea8b510d9fb40d4487d430ed11e47b
+      size: 110
